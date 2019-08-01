@@ -1,0 +1,62 @@
+.modes{
+    width: 20%;
+    height: 100%;
+    background: black;
+    text-align: center;
+    float: left;
+    color: white;
+    font-size: 200%;
+}
+.feed{
+    width: 99vw;
+    height: 60vh;
+    background-color: green;
+}
+#image{
+    height: 100%;
+    width: 50%;float: left;
+}
+#image_thresh{
+    height: 100%;
+    width: 50%;float: left;
+}
+.image_manual{
+    height: 100%;
+    width: 25%;
+    float: left;
+}
+.header{
+    width: 99vw;
+    height: 20vh;
+    background-color: gray;
+    display: block;
+}
+.footer{
+    width: 99vw;
+    height: 20vh;
+    background-color: black;
+    display: block;
+}
+input{
+    margin: 0;
+    padding: 0;
+    border: 0;
+    float: left;
+    width: 25%;
+    height: 99%;
+}
+.input2{
+    background-color: black;
+    color: white;
+}
+#controls_OD{
+    display: none;
+}
+#controls_RD{
+    display: none;
+}
+video{
+    height: 100%;
+    width: 50%;float: left;
+}
+

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title></title>
+  <link rel="stylesheet" href="index.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+</head>
+
+<body>
+  <div class="header">
+  <div class="modes" id="mode_1" onclick="swtich_Modes(0)">Motion Detection</div>
+  <div class="modes" id="mode_2" onclick="swtich_Modes(1)">Object Detection</div>
+  <div class="modes" id="mode_3" onclick="swtich_Modes(2)">Manual Detection</div>
+  <div class="modes" id="mode_5" >Configurations</div>
+  <div class="modes" id="mode_4" >Gallery</div>
+  </div>
+
+  <div class="feed">
+      <!-- <video id="video1" width="320" height="240" autoplay>
+      <source src="../recordings/movie.mp4" type="video/mp4">
+    </video> 
+    <div></div>
+  
+    -->
+    <img id="image">
+    <img id="image_thresh">
+  </div>
+
+  <div class="footer" id="controls_MD">
+    <input id="deactivated_MD" class="input1" type="radio" name="activation_MD" value="deactivated" onclick="deactivate_MD()">
+    <input class="input1" type="radio" name="activation_MD" value="activated"  onclick="activate_MD()">
+    
+    <input id="threshold" class="input2" type="number" name="threshold" min="1" max="100" onchange="update_Threshold()" value=3>
+    <input id="sensitivity" class="input2" type="number" name="sensitivity" min="1" max="100" onchange="update_Sensitivity()" value=10>
+  </div>
+  <div class="footer" id="controls_OD">
+      <input id="deactivated_OD" class="input1" type="radio" name="activation_OD" value="deactivated" onclick="deactivate_OD()">
+      <input class="input1" type="radio" name="activation_OD" value="activated"  onclick="activate_OD()">
+  </div>
+  <div class="footer" id="controls_RD">
+    <img class="image_manual" src="snapchat.png">
+    <img class="image_manual" src="record.gif">
+  </div>
+
+  <!-- <button onclick="playPause()">Play/Pause</button>  -->
+
+  <script src="index.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.dev.js"></script>
+  <script>
+// var myVideo = document.getElementById("video1"); 
+// function playPause() {
+//   myVideo.currentTime = 0; 
+//   if (myVideo.paused) 
+//     myVideo.play(); 
+//   else 
+//     myVideo.pause(); 
+// } 
+    var socket = io("localhost:3001");
+    //const imageElm = document.getElementById("image");
+
+    socket.on('sendImage', function(data) {
+        const imageElm = document.getElementById("image");
+        console.log("I got sthe data frame" );
+        //imageElm.src = `data:image/png;base64,${data}`;
+       imageElm.src = 'data:image/jpeg;base64,' + data;
+    })
+
+    socket.on('sendImage_thresh', function(data) {
+        const imageElm2 = document.getElementById("image_thresh");
+        //imageElm.src = `data:image/png;base64,${data}`;
+        imageElm2.src = 'data:image/jpeg;base64,' + data;
+    })
+
+    socket.on('thresh_debug', function(data) {
+       //console.log("there was a detection based on threshold and sensitivity");
+    })
+
+  
+    //setInterval(function(){ socket.emit('requestFrame'); console.log("i sent data ")}, 200);
+  </script>
+</body>
+
+</html>
